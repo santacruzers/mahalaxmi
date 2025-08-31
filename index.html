@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahalaxmi Stationery & Xerox</title>
+  <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+  <style>
+    :root {
+      --red: #8B0A0A;
+      --saffron: #FF7F2A;
+      --gold: #D4AF37;
+      --green: #2E8B57;
+      --paper: #FFF8ED;
+      --dark: #2B2B2B;
+    }
+    body {
+      margin: 0; font-family: 'Poppins', sans-serif; background: var(--paper); color: var(--dark);
+    }
+    header {
+      background: var(--red); color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000;
+    }
+    header h1 { margin: 0; font-family: 'Playfair Display', serif; font-size: 1.5rem; letter-spacing: 1px; }
+    nav a {
+      margin-left: 1rem; text-decoration: none; color: white; font-weight: 500; transition: color .2s;
+    }
+    nav a:hover { color: var(--gold); }
+    .hero {
+      text-align: center; padding: 4rem 2rem; background: linear-gradient(var(--saffron), var(--gold));
+      color: var(--dark);
+    }
+    .hero h2 { font-size: 2.2rem; margin: 0.5rem 0; font-family: 'Playfair Display', serif; }
+    .hero p { font-size: 1.1rem; }
+    .cta-btn {
+      display: inline-block; margin-top: 1.5rem; padding: 0.8rem 1.5rem;
+      background: var(--green); color: white; font-weight: 600; border-radius: 8px; text-decoration: none; transition: background .2s;
+    }
+    .cta-btn:hover { background: var(--red); }
+    .services {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; padding: 3rem 2rem; max-width: 1100px; margin: auto;
+    }
+    .card {
+      background: white; border: 2px solid var(--gold); border-radius: 12px; padding: 1.5rem; text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    }
+    .card h3 { margin: 0.5rem 0; color: var(--red); }
+    footer {
+      background: var(--dark); color: white; padding: 2rem; text-align: center; font-size: 0.9rem;
+    }
+    .contact-links a {
+      display: inline-block; margin: 0.5rem; padding: 0.5rem 1rem; background: var(--gold); color: var(--dark);
+      border-radius: 6px; text-decoration: none; font-weight: 600;
+    }
+    .fab {
+      position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white;
+      width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center;
+      font-size: 2rem; box-shadow: 0 4px 8px rgba(0,0,0,.3); text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MAHALAXMI</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="services.html">Services</a>
+      <a href="order.html">Order</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Jai Shree Ram</h2>
+    <h2>Mahalaxmi Stationery & Xerox</h2>
+    <p>Printout · Color/BW · Stationery · Lamination · Rubber Stamp · Spiral Binding · Project Binding</p>
+    <a class="cta-btn" href="order.html">Place an Order</a>
+  </section>
+
+  <section class="services">
+    <div class="card">
+      <h3>Printout</h3>
+      <p>High-quality B/W and Color printouts at student-friendly rates.</p>
+    </div>
+    <div class="card">
+      <h3>Stationery</h3>
+      <p>Wide range of notebooks, pens, art supplies and school essentials.</p>
+    </div>
+    <div class="card">
+      <h3>Lamination</h3>
+      <p>Protect your important documents with glossy/matte lamination.</p>
+    </div>
+    <div class="card">
+      <h3>Rubber Stamps</h3>
+      <p>Custom rubber stamps prepared quickly and accurately.</p>
+    </div>
+    <div class="card">
+      <h3>Binding</h3>
+      <p>Spiral binding and project binding for students and professionals.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Mahalaxmi Stationery & Xerox</strong></p>
+    <p>Shop No. S-27 W Shah, Arcade, Santa Cruz, Panjim 403005</p>
+    <p>Mob: <a href="tel:+917843031866" style="color:white;">7843031866</a> | 
+       <a href="tel:+919588675809" style="color:white;">9588675809</a></p>
+    <p>Email: <a href="mailto:laxmixerox65@gmail.com" style="color:white;">laxmixerox65@gmail.com</a></p>
+    <div class="contact-links">
+      <a href="https://wa.me/919588675809?text=Hi%20Mahalaxmi%20Stationery%2C%20I%20want%20to%20place%20an%20order.">WhatsApp</a>
+      <a href="mailto:laxmixerox65@gmail.com">Email</a>
+      <a href="tel:+919588675809">Call Now</a>
+      <a href="order.html">Order Online</a>
+    </div>
+    <p>© 2025 Mahalaxmi Stationery & Xerox. All Rights Reserved.</p>
+  </footer>
+
+  <a class="fab" href="https://wa.me/919588675809?text=Hi%20Mahalaxmi%20Stationery%2C%20I%20want%20to%20place%20an%20order.">✆</a>
+</body>
+        </html>
