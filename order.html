@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order - Mahalaxmi Stationery & Xerox</title>
+  <link rel="icon" href="assets/icons/favicon.png" type="image/png" />
+  <style>
+    :root {
+      --red: #8B0A0A;
+      --saffron: #FF7F2A;
+      --gold: #D4AF37;
+      --green: #2E8B57;
+      --paper: #FFF8ED;
+      --dark: #2B2B2B;
+    }
+    body {
+      margin: 0; font-family: 'Poppins', sans-serif; background: var(--paper); color: var(--dark);
+    }
+    header {
+      background: var(--red); color: white; padding: 1rem 2rem; text-align: center;
+    }
+    header h1 { margin: 0; font-family: 'Playfair Display', serif; }
+    main {
+      max-width: 700px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.1);
+    }
+    h2 { margin-top: 0; color: var(--red); font-family: 'Playfair Display', serif; }
+    label { display: block; margin: 1rem 0 0.3rem; font-weight: 600; }
+    input, select, textarea {
+      width: 100%; padding: 0.7rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem;
+    }
+    textarea { resize: vertical; }
+    .radio-group { display: flex; gap: 1rem; margin: 0.5rem 0; }
+    .btn {
+      margin-top: 1.5rem; padding: 0.9rem 1.5rem; background: var(--green); border: none; border-radius: 8px;
+      color: white; font-weight: 600; font-size: 1rem; cursor: pointer; transition: background .2s;
+    }
+    .btn:hover { background: var(--red); }
+    .summary { margin-top: 2rem; padding: 1rem; border: 2px solid var(--gold); border-radius: 8px; background: #fffdf5; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Order Form</h1>
+    <p>Mahalaxmi Stationery & Xerox</p>
+  </header>
+  <main>
+    <form id="orderForm">
+      <h2>Place Your Order</h2>
+      <label for="category">Category</label>
+      <select id="category" required>
+        <option value="">Select…</option>
+        <option>Printout</option>
+        <option>Stationery</option>
+        <option>Lamination</option>
+        <option>Rubber Stamp</option>
+        <option>Spiral Binding</option>
+        <option>Project Binding</option>
+        <option>Other</option>
+      </select>
+
+      <label for="details">Order Details</label>
+      <textarea id="details" rows="3" placeholder="Example: A4 Color Print, 50 copies, Double-sided"></textarea>
+
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" min="1" value="1" required />
+
+      <label>Pickup or Delivery</label>
+      <div class="radio-group">
+        <label><input type="radio" name="mode" value="Pickup" required /> Pickup</label>
+        <label><input type="radio" name="mode" value="Delivery" /> Delivery</label>
+      </div>
+
+      <div id="deliveryFields" style="display:none;">
+        <label for="address">Delivery Address</label>
+        <textarea id="address" rows="2"></textarea>
+      </div>
+
+      <label for="name">Your Name</label>
+      <input type="text" id="name" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" required />
+
+      <label for="payment">Payment Method</label>
+      <select id="payment" required>
+        <option value="">Select…</option>
+        <option>COD (Cash on Delivery)</option>
+        <option>Online (Razorpay)</option>
+      </select>
+
+      <button type="submit" class="btn">Submit Order</button>
+    </form>
+
+    <div id="summary" class="summary" style="display:none;"></div>
+  </main>
+
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  <script>
+    const form = document.getElementById('orderForm');
+    const deliveryFields = document.getElementById('deliveryFields');
+    const summaryBox = document.getElementById('summary');
+
+    form.mode.forEach(radio => {
+      radio.addEventListener('change', e => {
+        deliveryFields.style.display = e.target.value === 'Delivery' ? 'block' : 'none';
+      });
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const category = document.getElementById('category').value;
+      const details = document.getElementById('details').value;
+      const qty = document.getElementById('quantity').value;
+      const mode = form.mode.value;
+      const address = document.getElementById('address').value;
+      const name = document.getElementById('name').value;
+      const phone = document.getElementById('phone').value;
+      const payment = document.getElementById('payment').value;
+
+      let orderText = `Order: MAHALAXMI\nCustomer: ${name}\nPhone: ${phone}\nCategory: ${category}\nDetails: ${details}\nQty: ${qty}\nMode: ${mode}`;
+      if (mode === "Delivery") orderText += `\nAddress: ${address}`;
+      orderText += `\nPayment: ${payment}`;
+
+      summaryBox.style.display = "block";
+      summaryBox.textContent = orderText;
+
+      if (payment === "COD (Cash on Delivery)") {
+        const waUrl = "https://wa.me/919588675809?text=" + encodeURIComponent(orderText);
+        window.open(waUrl, "_blank");
+      } else if (payment === "Online (Razorpay)") {
+        const options = {
+          key: "rzp_test_xxxxxxxx", // replace with real key
+          amount: 50000, // example amount in paise
+          currency: "INR",
+          name: "Mahalaxmi Stationery",
+          description: "Order Payment",
+          handler: function (response) {
+            const waUrl = "https://wa.me/919588675809?text=" + encodeURIComponent(orderText + `\nPayment ID: ${response.razorpay_payment_id}`);
+            window.open(waUrl, "_blank");
+          },
+          prefill: { name: name, contact: phone }
+        };
+        const rzp1 = new Razorpay(options);
+        rzp1.open();
+      }
+    });
+  </script>
+</body>
+</html>
